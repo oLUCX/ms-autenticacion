@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ms-autenticacion
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bodeganube_auth
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  jwt:
+    # IMPORTANTE: reemplazar por una clave secreta real (>= 32 caracteres) y NO subirla a Github en un proyecto real.
+    # Aqui se deja como variable de entorno para que cada integrante use la suya en local.
+    secret: ${JWT_SECRET:cambiar-esta-clave-secreta-por-una-de-al-menos-32-caracteres}
+    expiration-ms: 3600000
