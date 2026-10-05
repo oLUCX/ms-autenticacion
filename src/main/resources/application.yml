@@ -1,16 +1,21 @@
 server:
-  port: 8081
+  port: ${PORT:8081}
 
 spring:
   application:
     name: ms-autenticacion
   datasource:
-    url: jdbc:postgresql://localhost:5432/bodeganube_auth
-    username: postgres
-    password: postgres
+    # Base de datos propia del microservicio (database-per-service).
+    # Los valores por defecto apuntan a un PostgreSQL local; se cambian con variables de entorno.
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/bodeganube_auth}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
   jpa:
     hibernate:
+      # Hibernate crea o actualiza las tablas a partir de las entidades al iniciar.
       ddl-auto: update
+    # La sesion de BD se cierra al terminar la transaccion del service, no al final de la peticion HTTP.
+    open-in-view: false
     show-sql: true
     properties:
       hibernate:
@@ -18,7 +23,7 @@ spring:
 
 app:
   jwt:
-    # IMPORTANTE: reemplazar por una clave secreta real (>= 32 caracteres) y NO subirla a Github en un proyecto real.
-    # Aqui se deja como variable de entorno para que cada integrante use la suya en local.
+    # Clave para firmar los JWT (HMAC, minimo 32 caracteres). Se define con la variable de entorno JWT_SECRET;
+    # el valor por defecto es solo para desarrollo local y no debe usarse en un ambiente real.
     secret: ${JWT_SECRET:cambiar-esta-clave-secreta-por-una-de-al-menos-32-caracteres}
-    expiration-ms: 3600000
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}
