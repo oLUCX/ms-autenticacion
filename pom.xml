@@ -44,6 +44,12 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!-- Solo el modulo de cifrado de Spring Security: guarda las contrasenas como hash BCrypt -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
         <!-- Driver JDBC de PostgreSQL: solo se necesita al ejecutar -->
         <dependency>
             <groupId>org.postgresql</groupId>
